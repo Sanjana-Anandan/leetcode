@@ -1,0 +1,46 @@
+PROBLEM - https://leetcode.com/problems/find-the-minimum-possible-sum-of-a-beautiful-array/
+DIFFICULTY - MEDIUM
+
+MY CODE:
+
+class Solution {
+public:
+    int minimumPossibleSum(int n, int target) {
+        vector<int> array;
+        int num = 1,sum=0;
+        for(int i=0;i<n;i++){
+            array.push_back(num);
+            sum+=num;
+            for(int j=0;j<array.size();j++){
+                if(i!=j && array[i]+array[j]==target){
+                    array.pop_back();
+                    sum-=num;
+                    i--;
+                }
+            }
+            num++;
+        }
+        return sum;      
+    }
+};
+TIME COMPLEXITY - O(n^2)
+OUTPUT - 563/577 TEST CASES PASSED. TIME LIMIT EXCEEDED
+
+OPTIMISED CODE - USING A SET INSTEAD OF AN ARRAY
+REASON - CHECKING IF AN ELEMENT CAN BE INSERTED INTO SET TO CREATE VALID PAIR cAN BE DONE IN O(1) TIME CPL INSTEAD OF O(n)
+
+CODE:
+class Solution {
+public:
+    long long minimumPossibleSum(int n, int target) {
+    set<int> st;
+    long long ans = 0;
+    for(int i = 1; st.size() < n; ++i ){
+        if(st.find(target - i) == st.end()) { st.insert(i); ans += i; }
+    }
+    return ans;
+}
+};
+
+570/577 TEST CASES PASSED.
+
