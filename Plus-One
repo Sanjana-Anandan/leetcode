@@ -1,0 +1,29 @@
+PROBLEM: https://leetcode.com/problems/plus-one/
+DIFFICULTY: EASY
+PROBLEM: You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. 
+The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+Increment the large integer by one and return the resulting array of digits.
+
+CODE:
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+
+        int last = digits.size() - 1;
+        while (last >= 0) {
+            if (digits[last] != 9) {
+                digits[last] += 1;
+                break;
+            } else {
+                digits[last] = 0;
+                last--;
+            }
+        }
+        if (last < 0) {
+            digits.insert(digits.begin(), 1);
+        }
+        return digits;
+    }
+};
+TEST CASES : PASSED
+TIME COMPLEXITY: O(n) for worst case
