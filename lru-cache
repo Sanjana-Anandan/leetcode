@@ -1,0 +1,45 @@
+PROBLEM: https://leetcode.com/problems/lru-cache/
+DIFFICULTY: MEDIUM
+
+APPROACH: Hash map for constant time access and a doubly linked list to track recently used keys. both get and put operations in O(1) time.
+
+CODE:
+class LRUCache {
+public:
+    unordered_map<int,pair<int,list<int>::iterator>> cache;
+    int capacity;
+    list<int> used;
+
+    LRUCache(int capacity) {
+        this->capacity = capacity;   
+    }
+    
+    int get(int key) {
+        if(cache.find(key)==cache.end()){
+            return -1;
+        }
+        used.erase(cache[key].second);
+        used.push_front(key);
+        cache[key].second = used.begin();
+        return cache[key].first;
+    
+    }
+    
+    void put(int key, int value) {
+        if(cache.find(key)!=cache.end()){
+            used.erase(cache[key].second);
+        }
+        else if(cache.size()>=capacity){
+            int lru = used.back();
+            used.pop_back();
+            cache.erase(lru);
+        }
+        used.push_front(key);
+        cache[key]={value,used.begin()};
+        
+    }
+};
+
+TESTCASES PASSED: ALL
+TIME COMPLEXITY: 100ms
+
