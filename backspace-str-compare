@@ -1,0 +1,22 @@
+PROBLEM : https://leetcode.com/problems/backspace-string-compare/
+DIFFICULTY: EASY
+QUESTION: Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+
+CODE:
+class Solution:
+    def back(self , s: str) -> str:
+        result = ""
+        for i in range(0,len(s)):
+            if s[i]=="#":
+                result = result[0:len(result)-1]
+            else:
+                result+=s[i]
+        return result
+
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        return self.back(s)==self.back(t)
+APPROACH: If character is not # then add to result string. If it is # then slice result string to exclude last added character
+TIME COMPLEXITY: O(n)
+TEST CASES: PASSED
+
+        
