@@ -1,0 +1,57 @@
+PROBLEM : https://leetcode.com/problems/fruits-into-baskets-ii
+DIFFICULTY: EASY
+
+QUESTION: You are given two arrays of integers, fruits and baskets, each of length n, where fruits[i] represents the quantity of the ith type of fruit, and baskets[j] represents the capacity of the jth basket.
+
+From left to right, place the fruits according to these rules:
+
+Each fruit type must be placed in the leftmost available basket with a capacity greater than or equal to the quantity of that fruit type.
+Each basket can hold only one type of fruit.
+If a fruit type cannot be placed in any basket, it remains unplaced.
+Return the number of fruit types that remain unplaced after all possible allocations are made.
+
+CODE:
+class Solution:
+    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
+        n = len(fruits)
+        i=0
+        j=0
+        count = 0
+        while i<n and j<n:
+            if  fruits[i]<=baskets[j]:
+                baskets[j]=0
+                i+=1
+                j=0
+            else:
+                if j==n-1:
+                    count+=1
+                    j=0
+                    i+=1
+                else:
+                    j+=1
+        return count
+
+OPTIMISATION: Instead of re-assigning j = 0 everytime which causes unnecessary rechecking, I'll use a boolean variable to check if in a basket fruit has been placed. 
+if not, increment count.
+
+CODE:
+class Solution:
+    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
+        n = len(fruits)
+        count = 0
+        
+        for fruit in fruits:
+            placed = False
+            for i in range(n):
+                if baskets[i] >= fruit:
+                    baskets[i] = 0  
+                    placed = True
+                    break
+            if not placed:
+                count += 1
+        return count
+        
+TIME COMPLEXITY: O(n^2)
+TEST CASES PASSED
+
+
